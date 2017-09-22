@@ -45,7 +45,7 @@ function [t,x,v] = vtb1_3(rkf,u,t,x0,v0)
 %
 %       Executing vtb1_3 without input arguments runs example 3.
 %
-%  This code WILL NOT give as good results as Matlab's integrators. It is
+%  This code WILL NOT give as good of results as Matlab's integrators. It is
 %  designed to be very simple to execute. It attempts to adjust the time
 %  step for best results, but the user should try smaller time steps until 
 %  convergence to make sure the results are reasonable. 
@@ -61,12 +61,12 @@ if nargin==0
    plot(t,x); % Plots displacement versus time.
    xlabel('Time')
    ylabel('Displacement')
-   title('Displacement versus time, vtb1\_3 Example 3')
+   title('Displacement versus time, vtb1_3 Example 3')
    grid on
    pause
    plot(t,v); % Plots velocity versus time.
    xlabel('Time')
-   title('Velocity versus time, vtb1\_3 Example 3')
+   title('Velocity versus time, vtb1_3 Example 3')
    ylabel('Velocity')
    grid on
    clear x v
@@ -86,7 +86,7 @@ TT=2*pi/sqrt(kom);
 h=t(2)-t(1);
 
 if h>TT/20
-    disp(['You should probably have uses a smaller time step. It has been reduced to ' num2str(TT/20) '.'])
+    disp(['You should probably have used a smaller time step. It has been reduced to ' num2str(TT/20) '.'])
     x=[];v=[];
     if norm(u)>1e-14
     return
