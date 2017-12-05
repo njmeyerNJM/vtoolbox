@@ -2,7 +2,7 @@ function [ap,bp]=vtb3_3(dat,t,n)
 %VTB3_3  Fourier series approximation to a function.
 %[a,b]=VTB3_3(dat,t,n) returns Fourier coefficients of a function
 %  The coefficients are numerical approximations of the true
-%  coefficients.
+%  coefficients of equation (3.20) in Inman's Engineering Vibration
 %    dat is a vector of data representing the function
 %    t   is the corresponding time vector
 %    n   is the desired number of terms to use in the Fourier series
@@ -21,6 +21,10 @@ function [ap,bp]=vtb3_3(dat,t,n)
 % f=2*(t<0.5);
 % [a,b]=vtb3_3(f,t,15);
 % vtb3_3(f,t,15)
+%  Example 3: (ex:1.3.1 from Vibration Testing by Dr Joseph Slater)
+ +%  Find the Fourier series of the function x(t) with a period of 4 sec where 
+ +%  x(t)={1, 0<t<2 and 0, 2<t<4 ................
+ +%  vtb3_5(1/2,0,0,'(2)/(pi*n)',0,50,4,1)
 %
 % VTB3_3(N) displays the N term Fourier approximation to a 
 % triangular input.  The approximation is plotted versus time 
@@ -36,6 +40,7 @@ function [ap,bp]=vtb3_3(dat,t,n)
 
 
 % Copyright Joseph C. Slater, Dec 1996
+% Revised 10/20/17 - Fixed legend error created by Mathworks change
 % Revised 10/20/11 - Added example. 
 % Revised 02/29/00 - Now can run with no arguments.
 % Revised 11/11/98 - Example changed to match default function 
@@ -84,20 +89,18 @@ else
   datapprox=a(1)/2+zeros(size(dat));
   plot(t,dat,t,datapprox)
   grid on
-  %aa=version;ll=length(aa);
-  grid on
-  %context=['Contribution of terms n=' num2str(i-1)];
+
+
   legend('Function','New Approximation')
   if nargout==0
     disp('Press ''enter'' to advance')
     pause
   end
-  
+  fig_num = figure;
   for ii=2:n+1
-    %  a(ii)
-    %  b(ii-1)
     newdat=a(ii)*cos(tp*(ii-1))+b(ii-1)*sin(tp*(ii-1));
     datapprox=datapprox+newdat;
+    
     if nargout==0
       %legend off
       plot(t,dat,t,datapprox,'o',t,datapprox-newdat,'x',t,newdat)
@@ -105,7 +108,8 @@ else
       %aa=version;ll=length(aa);
       grid on
       context=['Contribution of terms n=' num2str(ii-1)];
-      legend('Function','New Approximation','Old Approximation',context,0)
+      legend('Function','New Approximation','Old Approximation')%,context,0)
+      figure(fig_num);
       pause
     end
   end
@@ -114,7 +118,7 @@ else
   plot(t,dat,t,datapprox),grid on
   
   legend('Function','Approximation')
-  %aa=version;ll=length(aa);
+  figure(fig_num);
   
   if nargout~=0
     ap=a(1:n+1);bp=b(1:n);
